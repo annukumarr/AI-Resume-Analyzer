@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>AI Resume Analyzer</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="resume" required>
+    <button type="submit">Analyze</button>
+</form>
+
+{% if score %}
+<h2>Resume Score: {{ score }} / 100</h2>
+{% endif %}
+
+{% if role %}
+<h2>Best Suitable Role: {{ role }}</h2>
+{% endif %}
+
+{% if detected %}
+<h3>Detected Skills:</h3>
+<ul>
+{% for skill in detected %}
+<li>{{ skill }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if missing %}
+<h3>Missing Skills (Suggested):</h3>
+<ul>
+{% for skill in missing %}
+<li>{{ skill }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+<!-- Custom Cursor -->
+<div class="cursor"></div>
+
+<script>
+const cursor = document.querySelector(".cursor");
+
+document.addEventListener("mousemove", (e) => {
+    cursor.style.top = e.clientY + "px";
+    cursor.style.left = e.clientX + "px";
+});
+</script>
+
+</body>
+</html>
